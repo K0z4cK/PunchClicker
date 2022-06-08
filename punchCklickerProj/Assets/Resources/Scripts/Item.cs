@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
-    private int _hp;
+    [SerializeField]
+    private int _hpMax = 10;
+    public int HPMax { get { return _hpMax; } private set { _hpMax = value; } }
+
+    private int _hpCur;
     private int _award;
     private int _price;
+    //public Text hpText;
+    public Animator animator;
     // Start is called before the first frame update
     void Awake()
     {
-        _hp = 100;
+        //_hpMax = 100;
+        _hpCur = _hpMax;
         EventManager.Instance.attackItem.AddListener(GetHit);
     }
     private void OnMouseDown()
@@ -21,8 +29,19 @@ public class Item : MonoBehaviour
     }
     private void GetHit(int damage)
     {
-        _hp -= damage;
-        print("item hp: "+ _hp);
+        animator.Play("GetHit");
+        _hpCur -= damage;
+        print("item hp: "+ _hpCur);
+        if (_hpCur == 0)
+           StartCoroutine(DestroyItem());
+    }
+    private IEnumerator DestroyItem()
+    {
+        animator.Play("Destroy");
+        yield return new WaitForSeconds(0.5f);
+        EventManager.Instance.ItemDestroyed();
+        Destroy(this.gameObject);
+        //_hpCur = _hpMax;
     }
     // Update is called once per frame
     void Update()
