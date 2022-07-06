@@ -14,8 +14,9 @@ public class PlayerScript : MonoBehaviour
     void CreateItem()
     {
        var item = items[Random.Range(0, items.Count)];
-       Instantiate(item);
-       EventManager.Instance.ItemCreated(item.HPMax);
+       Instantiate(item, this.transform);
+      //  Instantiate(item);
+       EventManager.Instance.ItemCreated(3);
     }
     // Update is called once per frame
     void Update()
