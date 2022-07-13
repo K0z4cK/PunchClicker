@@ -27,8 +27,8 @@ public class CenterPanel : MonoBehaviour
     }
     void Awake()
     {
-        EventManager.Instance.itemCreate.AddListener(NewItem);
-        EventManager.Instance.attackItem.AddListener(ChangeHp);
+        //EventManager.Instance.itemCreate.AddListener(NewItem);
+        //EventManager.Instance.attackItem.AddListener(ChangeHp);
     }
 
     // Update is called once per frame

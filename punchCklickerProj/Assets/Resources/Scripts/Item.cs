@@ -9,17 +9,11 @@ public class Item : MonoBehaviour
     public Image currentImg;
     [SerializeField]
     public List<Sprite> images = new List<Sprite>();
-    [SerializeField]
-    //private int _hpMax = 10;
     
-    //public int HPMax { get { return _hpMax; } private set { _hpMax = value; } }
-
     private int _stage;
     private int _award;
     private int _price;
-    //public Text hpText;
     public Animator animator;
-    // Start is called before the first frame update
     void Awake()
     {
         //_hpMax = 100;
@@ -33,11 +27,10 @@ public class Item : MonoBehaviour
         EventManager.Instance.ItemClicked();
         
     }*/
-    private void GetHit(int damage)
+    private void GetHit()
     {
         animator.Play("GetHit");
         _stage++;
-        //_hpCur -= damage;
         print("stage: "+ _stage);
         if (_stage == 3)
            StartCoroutine(DestroyItem());
@@ -46,15 +39,13 @@ public class Item : MonoBehaviour
     }
     private IEnumerator DestroyItem()
     {
+        EventManager.Instance.attackItem.RemoveListener(GetHit);
+        EventManager.Instance.ScoreUpdated();
         animator.Play("Destroy");
         yield return new WaitForSeconds(0.5f);
         EventManager.Instance.ItemDestroyed();
+        
         Destroy(this.gameObject);
-        //_hpCur = _hpMax;
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 }

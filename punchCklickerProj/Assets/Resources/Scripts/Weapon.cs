@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    private int _damage;
+    //private int _damage;
     private int _price;
     [SerializeField]
     private string _side; 
@@ -12,7 +12,6 @@ public class Weapon : MonoBehaviour
     private Transform weapon;
     [SerializeField]
     Animator _animation = new Animator();
-    // List of animations
 
     /* void Attack()
      {
@@ -27,14 +26,14 @@ public class Weapon : MonoBehaviour
      }*/
     void Attack()
     {
-        print("item hit by: " + 0);
+        print("item hit");
         _animation.Play("Hit");
-        EventManager.Instance.ItemAttack(0);
+        EventManager.Instance.ItemAttack();
     }
     void Awake()
     {
         weapon = GetComponent<Transform>();
-        _damage = 10; //temp
+        //_damage = 10; //temp
         switch (_side)
         {
             case "left":
@@ -47,11 +46,5 @@ public class Weapon : MonoBehaviour
                 break;
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
